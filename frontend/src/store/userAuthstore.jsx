@@ -6,6 +6,7 @@ export const UserAuthStore = create((set) => ({
     isSigninUp:false,
     isLoggingIn:false,
     isUpdatePhoto:false,
+    onlineUsers : [],
     updatePhoto: async(photo)=>{
    
         set({isUpdatePhoto  : true})
@@ -33,7 +34,7 @@ export const UserAuthStore = create((set) => ({
     CheckAuth : async() =>{
         try{
             const res = await api.get("/user/check")
-            set({authuser: res.data, isCheckAuth: true})
+            set({authuser: res.data.user, isCheckAuth: true})
 
         }catch(err){
             console.log(err)
