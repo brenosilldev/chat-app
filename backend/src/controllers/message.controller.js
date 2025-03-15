@@ -23,39 +23,42 @@ const GetMessage = async (req, res) => {
     try{
         
         const id = req.params.id
-        const myid = req.loggeduserid
+        const myid = req.iduser
+
 
         const message = await MessageModel.find({
             $or:[
-                {sendId:myid,receiverId:id},
-                {sendId:id,receiverId:myid},
+                {senderId:myid,receiverId:id},
+                {senderId:id,receiverId:myid},
             ]
         })
-
         res.status(200).json(message)
 
     }catch(erro){
-        console.log(error)
+    
         res.status(500).json({error:'Internal serve error.'})
     }
 }
 
 
 const SendMessage = async(req,res) =>{
+
     try{
         const {text,image} = req.body;
-        const id = req.params.id;
-        const myid = req.iduser;
-      
 
+        const id = req.params.id;
+        const myid = req.iduser._id;
+        
         let imageurl;
 
         if(image){
-            const uploadresponse = await cloudinary.uploader.upload(photo)
+      
+            const uploadresponse = await cloudinary.uploader.upload(image)
+        
             imageurl = uploadresponse.secure_url
         }
 
-        
+
         const sendmessage = new MessageModel({
             senderId:myid,
             receiverId: id,
@@ -69,7 +72,6 @@ const SendMessage = async(req,res) =>{
 
 
     }catch(error){
-        console.log(error)
         res.status(500).json({error:'Internal serve error.'})
     }
     
