@@ -76,7 +76,7 @@ const Login = async(req, res) => {
 
         res.status(200).json({ 
             success:true,
-            iduser : verify._id,
+            _id : verify._id,
             name : verify.name,
             email : verify.email,
             image : verify.photo,
@@ -113,7 +113,7 @@ const UpdateUserPhoto = async (req, res) => {
         const { photo } = req.body; // Get name and email from request body
         // Find user by ID and update with new name and email
 
-        console.log(photo)
+     
         if(!photo){
             return res.status(400).json({ success: false ,message:'Photo is required'});
         }
