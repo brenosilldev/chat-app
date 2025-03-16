@@ -1,4 +1,4 @@
-import { UserAuthStore } from "../store/userAuthstore";
+import { UserAuthStore } from "../store/useAuthstore";
 import { Link } from 'react-router-dom';
 import { Lock, Mail, LogOut ,MessageSquare, User ,Eye,EyeOff, Loader,Settings} from 'lucide-react'
 
@@ -24,7 +24,7 @@ const Navbar = () => {
                     <div className='flex items-center gap-2'> 
                         <Link to='/settings' className='gap-2 transition-colors btn btn-sm'  >
                          
-                            <Settings  className="w-5 h-5 text-white"/>
+                            <Settings  className="w-5 h-5"/>
                         
                             
                         </Link>
@@ -34,13 +34,13 @@ const Navbar = () => {
 
                                 <Link to='/profile' className='gap-2 btn btn-sm' >
                          
-                                    <User  className="w-5 h-5 text-white"/>
+                                    <User  className="w-5 h-5 "/>
                                 
                                     
                                 </Link>
                                 <button className='flex items-center gap-2 btn btn-sm' onClick={logout}>
 
-                                    <LogOut   className="w-5 h-5 text-white"/>
+                                    <LogOut   className="w-5 h-5 "/>
                                    
                                 </button>
                             </>
