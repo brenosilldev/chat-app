@@ -6,7 +6,7 @@ import { Login } from "./pages/Login.jsx"
 import { SignUpPage } from "./pages/SignUp.jsx"
 import { SettingsPage } from "./pages/Settings.jsx"
 import { Profile } from "./pages/Profile.jsx"
-import { UserAuthStore } from "./store/userAuthstore.jsx"
+import { UserAuthStore } from "./store/useAuthstore.js"
 import { Loader } from 'lucide-react';
 import { useEffect } from "react"
 import { useThemeStore } from "./store/useThemestore.js"
@@ -23,7 +23,7 @@ const App = ()=>{
 
   if(isCheckAuth && !authuser){
     return(
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex items-center justify-center h-screen">
         <Loader className="size-10 animate-spin"/>
       </div>
     )
