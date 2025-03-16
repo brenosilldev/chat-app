@@ -1,27 +1,37 @@
-import React, { useEffect } from 'react'
+import React, {  useEffect ,useRef} from 'react'
 import { useChatStore } from '../store/useChatStore'
 import MessageSkeleton from './skeletons/MessageSkeleton'
 import  ChatHeader  from './ChatHeader'
 import { MessageInput } from './MessageInput'
-import { UserAuthStore } from '../store/userAuthstore'
+import { UserAuthStore } from '../store/useAuthstore'
 import FormatMessageTime from '../lib/utils'
 
 export const ChatContainer = () => {
-  const { messages,getMessages,isMessagesLoading,selectedUser } = useChatStore()
+  const { messages,getMessages,isMessagesLoading,selectedUser,subscribreToMessages,unsubcribeToMessages } = useChatStore()
   const { authuser} = UserAuthStore()
-
+  const messageEndREf = useRef(null);
   
   useEffect(() => {     
     const buscarMessages = async () => {        
         if (selectedUser?._id) {
-            console.log("Buscando mensagens para o usuário com ID:", selectedUser._id); // Verifique o ID
+         
             await getMessages(selectedUser._id);
         } else {
             console.warn("selectedUser._id está indefinido ou nulo!");
         }
     };
+    subscribreToMessages()
     buscarMessages();
-}, [getMessages, selectedUser?._id]);
+
+    return () => {
+      unsubcribeToMessages()
+    }
+}, [getMessages, selectedUser._id, subscribreToMessages, unsubcribeToMessages]);
+
+  useEffect(() => {
+      if(messageEndREf.current && messages) 
+      messageEndREf.current.scrollIntoView({ behavior: "smooth" });
+  },[messages])
 
   if(isMessagesLoading) return (
 
@@ -39,7 +49,7 @@ export const ChatContainer = () => {
           <div
             key={message._id}
             className={`chat ${message.senderId === authuser._id ? "chat-end" : "chat-start"}`}
-        
+            ref={messageEndREf}
           >
             <div className=" chat-image avatar">
               <div className="border rounded-full size-10">
