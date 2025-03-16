@@ -3,9 +3,11 @@ import cloudinary from "../lib/cloudinary.js";
 import bcrypt from "bcryptjs"
 import MessageModel from '../models/message.mode.js'
 import UserModel from "../models/user.model.js";
+import { getReceiverSocketId ,io} from "../lib/socket.js";
 
 
 const getUsersForSidebar = async(req, res) =>{
+    
     try{
         const loggeduserid = req.iduser;
         const filtredUsers = await UserModel.find({_id: {$ne:loggeduserid}}).select('-password');
@@ -43,9 +45,11 @@ const GetMessage = async (req, res) => {
 
 const SendMessage = async(req,res) =>{
 
+    
+
     try{
         const {text,image} = req.body;
-
+      
         const id = req.params.id;
         const myid = req.iduser._id;
         
@@ -65,8 +69,16 @@ const SendMessage = async(req,res) =>{
             text,
             image:imageurl
         })
+       
 
         await sendmessage.save();
+
+      
+        const receiverrSocketId = getReceiverSocketId(id)
+
+        if(receiverrSocketId){
+            io.to(receiverrSocketId).emit('newMessage',sendmessage)
+        }
 
         res.status(201).json(sendmessage)
 
