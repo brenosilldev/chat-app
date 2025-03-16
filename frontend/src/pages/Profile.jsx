@@ -36,7 +36,7 @@ export const Profile = () => {
               <div className="flex flex-col items-center gap-4">
                 <div className="relative">
                   <img
-                    src={imagem || authuser.user?.photo || "/avatar.png"}
+                    src={imagem || authuser?.photo || "/avatar.png"}
                     alt="Profile"
                     className="object-cover border-4 rounded-full size-32 "
                   />
@@ -71,7 +71,7 @@ export const Profile = () => {
                     <User className="w-4 h-4" />
                       Name
                   </div>
-                  <p className="px-4 py-2.5 bg-base-200 rounded-lg border">{authuser?.user?.name || 'Teste'} </p>
+                  <p className="px-4 py-2.5 bg-base-200 rounded-lg border">{authuser?.name || 'Teste'} </p>
                 </div>
 
                 <div className="space-y-1.5">
@@ -79,7 +79,7 @@ export const Profile = () => {
                     <Mail className="w-4 h-4" />
                     Email Address
                   </div>
-                  <p className="px-4 py-2.5 bg-base-200 rounded-lg border">{authuser?.user?.email}</p>
+                  <p className="px-4 py-2.5 bg-base-200 rounded-lg border">{authuser?.email}</p>
                 </div>
               </div>
               <div className="p-6 mt-6 bg-base-300 rounded-xl">
@@ -87,7 +87,7 @@ export const Profile = () => {
                   <div className="space-y-3 text-sm">
                     <div className="flex items-center justify-between py-2 border-b border-zinc-700">
                       <span>Member Since</span>
-                      <span>{authuser.user?.createdAt?.split("T")[0]}</span>
+                      <span>{authuser?.createdAt?.split("T")[0]}</span>
                     </div>
                     <div className="flex items-center justify-between py-2">
                       <span>Account Status</span>
