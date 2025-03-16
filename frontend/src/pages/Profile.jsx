@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { UserAuthStore } from '../store/userAuthstore'
+import { UserAuthStore } from '../store/useAuthstore'
 import { Camera,User,Mail } from "lucide-react"
 
 export const Profile = () => {
@@ -25,8 +25,8 @@ export const Profile = () => {
 
 
       <div className='h-screen pt-20'>
-          <div className="max-w-2xl mx-auto p-4 py-10">
-            <div className='bg-base-300 rounded-xl p-6 space-y-8'>
+          <div className="max-w-2xl p-4 py-10 mx-auto">
+            <div className='p-6 space-y-8 bg-base-300 rounded-xl'>
               <div className='text-center '>
                   <h1 className='text-2xl font-semibold'>Profile</h1>
                   <p className='mt-2'>Your profile information</p>
@@ -38,7 +38,7 @@ export const Profile = () => {
                   <img
                     src={imagem || authuser.user?.photo || "/avatar.png"}
                     alt="Profile"
-                    className="size-32 rounded-full object-cover border-4 "
+                    className="object-cover border-4 rounded-full size-32 "
                   />
                   <label
                     htmlFor="avatar-upload"
@@ -67,7 +67,7 @@ export const Profile = () => {
               </div>
               <div className="space-y-6">
                 <div className="space-y-1.5">
-                  <div className="text-sm text-zinc-400 flex items-center gap-2">
+                  <div className="flex items-center gap-2 text-sm text-zinc-400">
                     <User className="w-4 h-4" />
                       Name
                   </div>
@@ -75,15 +75,15 @@ export const Profile = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <div className="text-sm text-zinc-400 flex items-center gap-2">
+                  <div className="flex items-center gap-2 text-sm text-zinc-400">
                     <Mail className="w-4 h-4" />
                     Email Address
                   </div>
                   <p className="px-4 py-2.5 bg-base-200 rounded-lg border">{authuser?.user?.email}</p>
                 </div>
               </div>
-              <div className="mt-6 bg-base-300 rounded-xl p-6">
-                  <h2 className="text-lg font-medium  mb-4">Account Information</h2>
+              <div className="p-6 mt-6 bg-base-300 rounded-xl">
+                  <h2 className="mb-4 text-lg font-medium">Account Information</h2>
                   <div className="space-y-3 text-sm">
                     <div className="flex items-center justify-between py-2 border-b border-zinc-700">
                       <span>Member Since</span>
