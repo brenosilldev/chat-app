@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { api } from "../lib/axios";
 import toast from "react-hot-toast";
+import {UserAuthStore} from "./useAuthstore";
 
 export const useChatStore = create((set,get) => ({
     messages : [],
@@ -28,6 +29,8 @@ export const useChatStore = create((set,get) => ({
         try {
             const res = await api.post(`/message/${iduser}`)     
             set({messages : res.data})
+
+            
  
         } catch (error) {
 
@@ -46,5 +49,30 @@ export const useChatStore = create((set,get) => ({
             toast.error(error.response.data.error)
         }
     },
-    setSelectedUser : (user) => set({selectedUser : user})
+    subscribreToMessages :  () =>{
+        try {
+            const { selectedUser } = get()
+            if(!selectedUser) return
+
+            const socket = UserAuthStore.getState().socket
+
+            socket.on("newMessage", (data) => {
+                const isMessageSentFromSelectedUser = data.senderId !== selectedUser._id;
+                if (isMessageSentFromSelectedUser) return;
+
+                set({messages : [...get().messages,data]})
+            })
+
+        } catch (error) {
+            toast.error(error.response.data.error)
+        }
+    },
+    unsubcribeToMessages :  () =>{
+    
+        const socket = UserAuthStore.getState().socket
+        socket.off("newMessage")
+        
+    },
+    setSelectedUser : (user) => set({selectedUser : user}),
+    
 }));
