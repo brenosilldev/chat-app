@@ -45,8 +45,6 @@ const GetMessage = async (req, res) => {
 
 const SendMessage = async(req,res) =>{
 
-    
-
     try{
         const {text,image} = req.body;
       
@@ -57,8 +55,7 @@ const SendMessage = async(req,res) =>{
 
         if(image){
       
-            const uploadresponse = await cloudinary.uploader.upload(image)
-        
+            const uploadresponse = await cloudinary.uploader.upload(image)        
             imageurl = uploadresponse.secure_url
         }
 
