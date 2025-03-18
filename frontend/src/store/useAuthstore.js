@@ -117,10 +117,11 @@ export const UserAuthStore = create((set,get) => ({
         const {authuser} = get()
         if(!authuser || get().socket?.connected) return;
 
-        const socket = io( import.meta.env.MODE === "development" ? "http://localhost:3001/v1" : "/", { query :{
+        const socket = io("https://chat-app-iyd0.onrender.com", { query :{
             userid : authuser._id
 
         }});
+
         socket.connect();
         set({socket:socket})
 
