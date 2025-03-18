@@ -3,6 +3,8 @@ import { api } from "../lib/axios";
 import toast from "react-hot-toast";
 import {UserAuthStore} from "./useAuthstore";
 
+import SoundNotifcation from "../assets/sound/notification.mp3"
+
 export const useChatStore = create((set,get) => ({
     messages : [],
     users : [],
@@ -28,6 +30,8 @@ export const useChatStore = create((set,get) => ({
 
         try {
             const res = await api.post(`/message/${iduser}`)     
+
+
             set({messages : res.data})
 
             
@@ -57,9 +61,11 @@ export const useChatStore = create((set,get) => ({
             const socket = UserAuthStore.getState().socket
 
             socket.on("newMessage", (data) => {
+                console.log(data)
                 const isMessageSentFromSelectedUser = data.senderId !== selectedUser._id;
                 if (isMessageSentFromSelectedUser) return;
-
+                const audio = new Audio(SoundNotifcation)
+                audio.play()
                 set({messages : [...get().messages,data]})
             })
 
