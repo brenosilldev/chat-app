@@ -41,6 +41,7 @@ export const ChatContainer = () => {
         <MessageInput />
     </div>
   )
+  
   return (
     <div className="flex flex-col flex-1 overflow-auto base-100/50">
         <ChatHeader />

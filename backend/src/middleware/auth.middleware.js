@@ -13,7 +13,7 @@ export const ProtecRoute = async(req,res,next) =>{
         const decode = jwt.verify(token,process.env.JWT_SECRET)
 
         if(!decode) return res.status(401).json({success:false,message:'Unathorized - Token Invalid.'})
-
+      
         const user = await UserModel.findById(decode.iduser).select("-password");
 
         if (!user) {
@@ -21,6 +21,8 @@ export const ProtecRoute = async(req,res,next) =>{
         }
 
         req.iduser = user;
+
+   
 
 
         next()
