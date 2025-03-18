@@ -37,7 +37,7 @@ export const Sidebar = () => {
                             <span>Show online users</span>
                             
                         </label>
-                        <span>({onlineUsers.length - 1} online)</span>
+                        <span>({onlineUsers.length} online)</span>
                         
                     </div>
                         
