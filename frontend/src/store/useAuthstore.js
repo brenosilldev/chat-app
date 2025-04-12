@@ -81,6 +81,7 @@ export const UserAuthStore = create((set,get) => ({
             });
             set({authuser: null});
             toast.success('Loggout')
+            
             get().SocketDesconnection()
         } catch (error) {
             toast.error(error.response.data.message)
